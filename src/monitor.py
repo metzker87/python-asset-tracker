@@ -22,7 +22,8 @@ def fetch_and_save_data():
         return
 
     # 2. Processamento com Pandas
-    new_data = data['Close'].iloc[-1].to_frame().T
+    last_close = data['Close'].iloc[-1]
+    new_data = pd.DataFrame({ASSETS[0]: [last_close]})
     
     new_data['Timestamp'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S') # coluna para registrar data/hora da coleta
     new_data = new_data[['Timestamp'] + [col for col in new_data.columns if col != 'Timestamp']]
